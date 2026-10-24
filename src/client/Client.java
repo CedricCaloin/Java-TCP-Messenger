@@ -7,9 +7,12 @@ import java.util.Scanner;
 
 public class Client {
     private String host;
+    private String pseudo;
     private int port;
 
-    public Client(String host, int port) {
+    public Client(String pseudo, String host, int port) {
+        if (pseudo == null) this.pseudo = "anonyme";
+        else this.pseudo = pseudo;
         this.host = host;
         this.port = port;
     }
@@ -21,6 +24,7 @@ public class Client {
             System.out.println("Connecté au serveur !");
 
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            out.println(pseudo);
 
             LecteurServeur lecteur = 
                 new LecteurServeur(new BufferedReader(new InputStreamReader(socket.getInputStream())), socket);
@@ -40,7 +44,7 @@ public class Client {
     }
 
     public static void main(String[] args) {
-        Client client = new Client("localhost", 8080);
+        Client client = new Client("anonyme", "localhost", 8080);
         client.demarrer();
     }
 }

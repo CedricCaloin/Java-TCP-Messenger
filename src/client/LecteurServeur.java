@@ -17,7 +17,8 @@ public class LecteurServeur implements Runnable {
         try (BufferedReader lecture = new BufferedReader(new InputStreamReader(this.socket.getInputStream()))) {
             String message;
             while ((message = lecture.readLine()) != null) {
-                System.out.println("Reçu : " + message);
+                System.out.println(message);
+                System.out.print("=>");
             }
         }
         catch (Exception e) {

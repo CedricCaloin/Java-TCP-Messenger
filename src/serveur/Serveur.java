@@ -1,4 +1,6 @@
 package serveur;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -18,13 +20,16 @@ public class Serveur {
         this.pool = Executors.newCachedThreadPool();
     }
 
-    private void demarrer() {
+    public void demarrer() {
         try (ServerSocket serverSocket = new ServerSocket(this.port)) {
             while (true) {
                 Socket socket = serverSocket.accept();
                 System.out.println("Nouvelle connection");
                 this.clients.add(socket);
-                GestionClient client = new GestionClient(socket,this);
+                String pseudo = "anonyme";
+                BufferedReader lecture = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                pseudo = lecture.readLine();
+                GestionClient client = new GestionClient(socket,this,pseudo);
                 pool.execute(client);
             }
             
@@ -38,7 +43,7 @@ public class Serveur {
         for(Socket client: clients) {
             try {
                 PrintWriter sortieClient = new PrintWriter(client.getOutputStream(), true);
-                 sortieClient.println(message);
+                sortieClient.println(message);
             }
             catch (Exception e) {
                 e.printStackTrace();

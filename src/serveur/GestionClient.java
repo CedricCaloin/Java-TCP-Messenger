@@ -6,10 +6,12 @@ import java.net.Socket;
 public class GestionClient implements Runnable{
     private Socket socket;
     private Serveur serveur;
+    private String pseudo;
 
-    public GestionClient(Socket socket, Serveur serveur) {
+    public GestionClient(Socket socket, Serveur serveur, String pseudo) {
         this.socket = socket;
         this.serveur = serveur;
+        this.pseudo = pseudo;
     }
 
     @Override
@@ -17,7 +19,8 @@ public class GestionClient implements Runnable{
         try (BufferedReader lecture = new BufferedReader(new InputStreamReader(this.socket.getInputStream()))) {
             String message;
             while ((message = lecture.readLine()) != null) {
-                serveur.envoyerMessage(message);
+                if (message.startsWith("GET /") || message.startsWith("Host:") || message.startsWith("User-Agent:"));
+                serveur.envoyerMessage(pseudo + " : " + message);
             }
         }
         catch (Exception e) {
