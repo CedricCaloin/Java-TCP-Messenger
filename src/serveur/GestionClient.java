@@ -20,7 +20,7 @@ public class GestionClient implements Runnable{
             String message;
             while ((message = lecture.readLine()) != null) {
                 if (message.startsWith("GET /") || message.startsWith("Host:") || message.startsWith("User-Agent:"));
-                serveur.envoyerMessage(pseudo + " : " + message);
+                else serveur.envoyerMessage(pseudo + " : " + message);
             }
         }
         catch (Exception e) {

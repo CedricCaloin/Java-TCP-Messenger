@@ -20,7 +20,8 @@ public class Client {
     public void demarrer() {
         Scanner scanner = new Scanner(System.in);
 
-        try (Socket socket = new Socket(host, port)) {
+        try {
+            Socket socket = new Socket(host, port);
             System.out.println("Connecté au serveur !");
 
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -31,11 +32,8 @@ public class Client {
             Thread threadEcoute = new Thread(lecteur);
             threadEcoute.start();
 
-            System.out.print("=>");
-            while(scanner.hasNextLine()) {
-                out.println(scanner.nextLine());
-                System.out.print("=>");
-            }
+            Fenetre fenetre = new Fenetre(out, host, pseudo);
+            fenetre.setVisible(true);
 
         }
         catch (Exception e) {
