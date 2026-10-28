@@ -27,12 +27,13 @@ public class Client {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             out.println(pseudo);
 
+            Fenetre fenetre = new Fenetre(out, host, pseudo);
+
             LecteurServeur lecteur = 
-                new LecteurServeur(new BufferedReader(new InputStreamReader(socket.getInputStream())), socket);
+                new LecteurServeur(new BufferedReader(new InputStreamReader(socket.getInputStream())), socket, fenetre);
             Thread threadEcoute = new Thread(lecteur);
             threadEcoute.start();
 
-            Fenetre fenetre = new Fenetre(out, host, pseudo);
             fenetre.setVisible(true);
 
         }

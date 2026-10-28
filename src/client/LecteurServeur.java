@@ -4,12 +4,14 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 public class LecteurServeur implements Runnable {
-    BufferedReader lecteur;
-    Socket socket;
+    private BufferedReader lecteur;
+    private Socket socket;
+    private Fenetre fenetre;
 
-    public LecteurServeur(BufferedReader lecteur, Socket socket) {
+    public LecteurServeur(BufferedReader lecteur, Socket socket, Fenetre fenetre) {
         this.lecteur = lecteur;
         this.socket = socket;
+        this.fenetre = fenetre;
     }
 
     @Override
@@ -18,7 +20,7 @@ public class LecteurServeur implements Runnable {
             String message;
             while ((message = lecture.readLine()) != null) {
                 System.out.println(message);
-                System.out.print("=>");
+                fenetre.ecrireMessage(message);
             }
         }
         catch (Exception e) {
