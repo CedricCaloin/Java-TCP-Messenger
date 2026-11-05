@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.net.URL;
 
 import java.awt.*;
 
@@ -21,6 +22,11 @@ public class Application extends JFrame {
         setLayout(new GridBagLayout());
         setLocationRelativeTo(null);
         getContentPane().setBackground(Color.black);
+        URL iconURL = getClass().getResource("/logo.png"); 
+        if (iconURL != null) {
+            ImageIcon icon = new ImageIcon(iconURL);
+            setIconImage(icon.getImage());
+        }
 
         JPanel panneauPseudo = new JPanel();
         panneauPseudo.setBackground(Color.BLACK);

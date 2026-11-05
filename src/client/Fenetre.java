@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.*;
 import java.awt.*;
 import java.io.PrintWriter;
+import java.net.URL;
 
 public class Fenetre extends JFrame {
     private JTextPane output;
@@ -22,6 +23,11 @@ public class Fenetre extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
+        URL iconURL = getClass().getResource("/logo.png"); 
+        if (iconURL != null) {
+            ImageIcon icon = new ImageIcon(iconURL);
+            setIconImage(icon.getImage());
+        }
         
         this.output = new JTextPane();
         output.setEditable(false);
