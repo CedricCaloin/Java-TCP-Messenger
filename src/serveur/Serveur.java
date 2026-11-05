@@ -26,11 +26,11 @@ public class Serveur {
                 Socket socket = serverSocket.accept();
                 System.out.println("Nouvelle connection");
                 this.clients.add(socket);
-                String pseudo = "anonyme";
                 BufferedReader lecture = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                pseudo = lecture.readLine();
+                String pseudo = lecture.readLine();
                 GestionClient client = new GestionClient(socket,this,pseudo);
                 pool.execute(client);
+                envoyerMessage("serveur : Un " + pseudo + " sauvage vient d'arriver !!");
             }
             
         }

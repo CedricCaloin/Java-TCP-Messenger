@@ -51,9 +51,14 @@ public class Fenetre extends JFrame {
         StyleConstants.setForeground(styleMessage, Color.WHITE);
         
         if (part[0].equalsIgnoreCase("serveur")) {
-
+            try {
+                doc.insertString(doc.getLength(), part[1] + "\n", styleMessage);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        if (part[0].equalsIgnoreCase(pseudo)) {
+        else if (part[0].equalsIgnoreCase(pseudo)) {
             try {
                 Style stylePseudo = output.addStyle("pseudo", null);
                 StyleConstants.setForeground(stylePseudo, Color.GREEN);
